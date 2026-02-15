@@ -4,7 +4,6 @@ import pyautogui
 class AutoClickerGUI(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
-
         self.amount_input = QtWidgets.QSpinBox()
         self.start_button = QtWidgets.QPushButton("Start Autoclicker")
 
@@ -18,12 +17,13 @@ class AutoClickerGUI(QtWidgets.QWidget):
         amount = self.amount_input.value()
         auto_left_click(amount)
 
-def auto_left_click(amount=None):
-    if amount:
-        for i in range(amount):
+def auto_left_click(amount):
+    if amount == 0:
+        while True:
             pyautogui.leftClick()
     else:
-        pyautogui.leftClick()
+        for i in range(amount):
+            pyautogui.leftClick()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
