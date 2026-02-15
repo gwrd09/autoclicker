@@ -1,5 +1,10 @@
+import time
 from PySide6 import QtWidgets
 import pyautogui
+
+pyautogui.PAUSE = 0
+pyautogui.MINIMUM_DURATION = 0
+pyautogui.MINIMUM_SLEEP = 0
 
 class AutoClickerGUI(QtWidgets.QMainWindow):
     def __init__(self):
@@ -29,11 +34,13 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
         if amount == -1:
             while True:
                 pyautogui.click()
+                time.sleep(1/20)
         if amount == 0:
             pass
         else:
             for _ in range(amount):
                 pyautogui.click()
+                time.sleep(1/20)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
