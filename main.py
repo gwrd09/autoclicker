@@ -1,4 +1,4 @@
-import time, threading 
+import time, threading, keyboard
 from PySide6 import QtWidgets
 import pyautogui
 
@@ -34,6 +34,7 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
         self.setCentralWidget(container)
 
         self.start_button.clicked.connect(self.auto_clicker_worker)
+        keyboard.add_hotkey("f4", self.auto_clicker_worker)
 
     def auto_clicker_worker(self):
         if not self.autoclicker_flag:
