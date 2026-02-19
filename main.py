@@ -1,4 +1,4 @@
-import time
+import time, threading 
 from PySide6 import QtWidgets
 import pyautogui
 
@@ -31,11 +31,16 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
         container.setLayout(layout)
         self.setCentralWidget(container)
 
-        self.start_button.clicked.connect(self.auto_left_click)
+        self.start_button.clicked.connect(self.auto_clicker_worker)
+
+    def auto_clicker_worker(self):
+        threading.Thread(target=self.auto_left_click).start()
 
     def auto_left_click(self):
         amount = self.amount_input.value()
         cps = self.cps_input.value()
+        print(amount, cps)
+        time.sleep(3)
         if amount == -1:
             while True:
                 pyautogui.click()
