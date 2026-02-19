@@ -46,7 +46,6 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
     def auto_left_click(self):
         amount = self.amount_input.value()
         cps = self.cps_input.value()
-        print(amount, cps)
         time.sleep(3)
         if amount == -1:
             try:
