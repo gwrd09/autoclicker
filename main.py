@@ -9,6 +9,8 @@ pyautogui.MINIMUM_SLEEP = 0
 class AutoClickerGUI(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.autoclicker_flag = False
+
         self.setWindowTitle("Autoclicker!")
         self.setFixedWidth(250)
         self.setFixedHeight(150 )
@@ -34,7 +36,11 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
         self.start_button.clicked.connect(self.auto_clicker_worker)
 
     def auto_clicker_worker(self):
-        threading.Thread(target=self.auto_left_click).start()
+        if not self.autoclicker_flag:
+            threading.Thread(target=self.auto_left_click).start()
+            self.autoclicker_flag = True
+        else:
+            pass
 
     def auto_left_click(self):
         amount = self.amount_input.value()
@@ -42,15 +48,21 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
         print(amount, cps)
         time.sleep(3)
         if amount == -1:
-            while True:
-                pyautogui.click()
-                time.sleep(1/cps)
+            try:
+                while True:
+                    pyautogui.click()
+                    time.sleep(1/cps)
+            except pyautogui.FailSafeException:
+                self.autoclicker_flag = False
         if amount == 0:
             pass
         else:
-            for _ in range(amount):
-                pyautogui.click()
-                time.sleep(1/cps)
+            try:
+                for _ in range(amount):
+                    pyautogui.click()
+                    time.sleep(1/cps)
+            except pyautogui.FailSafeException:
+                self.autoclicker_flag = False
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
