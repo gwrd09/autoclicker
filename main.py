@@ -19,7 +19,7 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
         self.amount_input.setRange(-1, 999999)
         self.cps_label = QtWidgets.QLabel("Clicks Per Second:")
         self.cps_input = QtWidgets.QSpinBox()
-        self.cps_input.setRange(1, 30)
+        self.cps_input.setRange(1, 125)
         self.start_button = QtWidgets.QPushButton("Start Autoclicker")
 
         layout = QtWidgets.QVBoxLayout()
@@ -46,7 +46,6 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
     def auto_left_click(self):
         amount = self.amount_input.value()
         cps = self.cps_input.value()
-        time.sleep(3)
         if amount == -1:
             try:
                 while True:
@@ -54,8 +53,6 @@ class AutoClickerGUI(QtWidgets.QMainWindow):
                     time.sleep(1/cps)
             except pyautogui.FailSafeException:
                 self.autoclicker_flag = False
-        if amount == 0:
-            pass
         else:
             try:
                 for _ in range(amount):
